@@ -1,0 +1,16 @@
+{
+  "name": "node-full-course",
+  "version": "1.0.0",
+  "description": "I learn NODE JS COURSE to create a backend for bookattacks",
+  "main": "usingConsole.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Dzmitry Parkheichuk <shikofx@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "validator": "^11.1.0",
+    "yargs": "^14.0.0"
+  }
+}
