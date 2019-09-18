@@ -1,8 +1,8 @@
 {
-  "name": "node-full-course",
+  "name": "notes-app",
   "version": "1.0.0",
-  "description": "I learn NODE JS COURSE to create a backend for bookattacks",
-  "main": "usingConsole.js",
+  "description": "Create notes application. Using of chalk-colors, validator, yargs",
+  "main": "app.js",
   "scripts": {
     "test": "test"
   },
