@@ -1,23 +1,25 @@
 const request = require('request');
 const color = require('chalk')
 
-const find = (location, callback) => {
-    const urlWeatherApi = 'https://api.darksky.net/forecast/1d438066941a54d711fb799a44b30655/' + 
-                          location.latitude + ',' + location.longitude + 
+
+const find = ( { latitude, longitude }, callback) => {
+    const url = 'https://api.darksky.net/forecast/1d438066941a54d711fb799a44b30655/' + 
+                          latitude + ',' + longitude + 
                           '?lang=ru&units=si&exclude=hourly,monthly,alerts,flags';
-    request({url: urlWeatherApi, json: true}, (error, response) => {
+
+    request({ url, json: true}, (error, { body, statusCode, statusMessage }) => {
         if(error){
             callback('Unable to connect to location service\n' + error);
-        } else if(response.body.error){
-            callback(`Error when get weather ${response.statusCode}: ${response.statusMessage} \nCheck URL: ${urlWeatherApi}`);
+        } else if(body.error){
+            callback(`Error when get weather ${statusCode}: ${statusMessage} \nCheck URL: ${url}`);
         } else { 
             callback(undefined, {
-                timezone:           response.body.timezone,
-                temperature:        response.body.currently.temperature,
-                windSpeed:          response.body.currently.windSpeed,
-                rainProbability:    Math.round(response.body.currently.precipProbability*100),
-                currentlySummary:   response.body.currently.summary,
-                dailySummary:       response.body.daily.summary
+                timezone:           body.timezone,
+                temperature:        body.currently.temperature,
+                windSpeed:          body.currently.windSpeed,
+                rainProbability:    Math.round(body.currently.precipProbability*100),
+                currentlySummary:   body.currently.summary,
+                dailySummary:       body.daily.summary
             });  
         }
     });
