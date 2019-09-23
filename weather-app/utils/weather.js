@@ -1,42 +1,73 @@
 const request = require('request');
 const color = require('chalk')
+const geocode = require('./geocode');
 
 
-const find = ( { latitude, longitude }, callback) => {
+var temperature = 0;
+var windSpeed = 0;
+var timezone = '';        
+var rainProbability = 0;
+var currentlySummary = '';
+var dailySummary = '';    
+var latitude = 0;
+var longitude = 0;
+var placeName = '';
+
+var findByLocation = ( { latitude, longitude, customPlace }, callback) => {
     const url = 'https://api.darksky.net/forecast/1d438066941a54d711fb799a44b30655/' + 
                           latitude + ',' + longitude + 
                           '?lang=ru&units=si&exclude=hourly,monthly,alerts,flags';
-
+    
+                          this.latitude = latitude;
+                          this.longitude = longitude;
+                          this.placeName = customPlace;        
+                          
     request({ url, json: true}, (error, { body, statusCode, statusMessage }) => {
         if(error){
             callback('Unable to connect to location service\n' + error);
         } else if(body.error){
             callback(`Error when get weather ${statusCode}: ${statusMessage} \nCheck URL: ${url}`);
         } else { 
-            callback(undefined, {
-                timezone:           body.timezone,
-                temperature:        body.currently.temperature,
-                windSpeed:          body.currently.windSpeed,
-                rainProbability:    Math.round(body.currently.precipProbability*100),
-                currentlySummary:   body.currently.summary,
-                dailySummary:       body.daily.summary
-            });  
+            this.timezone =           body.timezone;
+            this.temperature =        body.currently.temperature;
+            this.windSpeed =          body.currently.windSpeed;
+            this.rainProbability =    Math.round(body.currently.precipProbability*100);
+            this.currentlySummary =   body.currently.summary;
+            this.dailySummary =       body.daily.summary;
+            callback(undefined, this);
         }
     });
 };
 
-const toString = (location, weather) => {
-    return  'Ищем погоду для ' + location.placeName + 'с координатами \n' +
-            ' - ' + location.latitude + ' градусов северной широты \m' + 
-            ' - ' + location.longitude + ' градусов восточной долготы \n' +
-            `Найдена погода для ${weather.timezone}\n` +
-            `Сейчас здесь температура = ${weather.temperature} градусов.\n` + 
-            `Ветер движется со скоростью ${weather.windSpeed} км/ч.\n` +
-            `Вероятность осадков ${weather.rainProbability}%.\n` +                     
-            `${weather.currentlySummary}. ${weather.dailySummary}`; 
+const findByPlace = function(customPlace, callback) {
+    geocode(customPlace, (error, { longitude, latitude, placeName }) => {
+        if(error){
+            return console.log(color.red.inverse(error));
+        } 
+            
+        this.findByLocation({ longitude, latitude, placeName }, (error, weather) => {
+            if(error){
+                return console.log(color.red.inverse(error));
+            } 
+             
+            callback(weather);
+            
+        });
+    });
 }
 
 module.exports = {
-    findBy: find,
-    toString: toString
+    findByLocation: findByLocation,
+    findByPlace: findByPlace,
+    temperature,
+    windSpeed,
+    timezone,  
+    rainProbability, 
+    currentlySummary,
+    dailySummary,
+    latitude,
+    longitude,
+    placeName
+    
+
 }
