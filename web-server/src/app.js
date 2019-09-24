@@ -3,7 +3,18 @@ const path = require('path');
 const weather = require('../../weather-app/utils/weather')
 
 const app = express();
+
+//Paths for Express config
+const viewPath = path.join(__dirname, '../templates')
 const pagesPath = path.join(__dirname, '../pages');
+
+//Setup handlebars engine and views location
+app.set('view engine', 'hbs');
+app.set('views', viewPath); 
+
+//Setup static pages content path
+app.use(express.static(pagesPath));
+
 const owner = {
     name: 'Shikofx',
     mail: 'shikofx@gmail.com'
@@ -14,8 +25,6 @@ const source = {
     location: 'https://mapbox.com'
 };
 
-app.set('view engine', 'hbs');
-app.use(express.static(pagesPath));
 
 app.get('', (req, res) => {
     res.render('index', {
