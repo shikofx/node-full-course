@@ -18,9 +18,9 @@ var findByLocation = ( { latitude, longitude, customPlace }, callback) => {
                           latitude + ',' + longitude + 
                           '?lang=ru&units=si&exclude=hourly,monthly,alerts,flags';
     
-                          this.latitude = latitude;
-                          this.longitude = longitude;
-                          this.placeName = customPlace;        
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.placeName = customPlace;        
                           
     request({ url, json: true}, (error, { body, statusCode, statusMessage }) => {
         if(error){
@@ -68,6 +68,4 @@ module.exports = {
     latitude,
     longitude,
     placeName
-    
-
 }
