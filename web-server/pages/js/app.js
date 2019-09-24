@@ -1,0 +1,1 @@
+console.log('JS script for pages is loaded');
