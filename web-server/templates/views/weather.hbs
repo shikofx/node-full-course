@@ -1,19 +1,15 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>{{title}} </title>
-        <link rel="stylesheet" href="/css/style.css">
-
-    </head>
-    <header>
-        <a href = '/'>На главную</a>
-        <a href = '/help'>Помощь</a>
-        <a href = '/about'>О нас</a>
-    </header>
     
+    {{>head}}
+
+    {{>header}}
+        
     <body>
-        <h1>{{title}}</h1>
+        {{>titleMenu}}
+
+        {{>titleHead}}
+        
         <p>Ищем погоду в <strong>{{weather.timezone}}</strong></p>
         <pre>   - <b>{{weather.latitude}}<sup>o</sup></b> северной широты</pre>
         <pre>   - <b>{{weather.longitude}}<sup>o</sup></b> восточной долготы</pre>
@@ -24,10 +20,6 @@
         <p>Скорость ветра - <b><i>{{weather.windSpeed}}</i></b> км/ч</p>
     </body>
 
-    <footer>
-        <p>Поиск погоды по данным с сервиса <a href="{{source.weather}}">{{source.weather}}</a><br>
-        Координаты для погоды определяются по месту положения при помощи сервиса <a href="{{source.location}}">{{source.location}}"</a></p>
-        <p>Created by <a href={{owner.mail}}>{{owner.name}}</a></p>
-    </footer>
+    {{>footer}}
 
 </html>
