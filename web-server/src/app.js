@@ -66,6 +66,29 @@ app.get('/about', (req, res) => {
     });
 }); 
 
+app.get('/help/test', (req, res) => {
+    res.send('Article about testing! Here we can see how to test Weather application.');
+});
+
+app.get('/help/*', (req, res) => {
+    res.render('error404NotFound', {
+        title: '404 Article Not Found',
+        owner: owner,
+        source: source,
+        message: "Help article wasn't found"
+    });
+});
+
+//Все ссылки, которыне не совпали с предыдущими
+app.get('*', (req, res) => {
+    res.render('error404NotFound', {
+        title: '404 Page Not Found',
+        owner: owner,
+        source: source,
+        message: "Error 404. Page wasn't found"
+    });
+});
+
 app.listen(3000, () => {
     console.log('Server is up on port 3000');
     
