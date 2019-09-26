@@ -1,4 +1,5 @@
 const express = require('express');
+const color = require('chalk');
 const path = require('path');
 const weather = require('../../weather-app/utils/weather');
 const hbs = require('hbs');
@@ -38,7 +39,12 @@ app.get('', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-    weather.findByPlace('Moscow', (w) => {
+    const place = req.query.place;
+    if(!place){
+        return res.send('<h1>ERROR: Place prlperty is undefined!</h1>');
+    }
+
+    weather.findByPlace(place, (w) => {
         res.render('weather', {
             title: 'Weather info',
             weather: w,
