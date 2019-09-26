@@ -1,7 +1,7 @@
 const express = require('express');
 const color = require('chalk');
 const path = require('path');
-const weather = require('../../weather-app/utils/weather');
+const weather = require('./utils/weather.js');
 const hbs = require('hbs');
 const app = express();
 
