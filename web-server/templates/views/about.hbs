@@ -2,22 +2,30 @@
 
 <html>
 
-    {{>head}}
+   <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel='icon' href="/img/icon-contact.png"
+    </head>
 
-    {{>header}}
     
     <body>
-        {{>titleMenu}}
+       <div class="main-content">
+            {{>header}}
+            
+            {{>titleMenu}}
 
-        {{>titleHead}}
+            {{>titleHead}}
+
+            <p><img src="/img/mind.jpg" class="about"></p>
+            <p>Мы - крутая команда, не знающая преград</p>
+
+        </div> 
         
-        <p><img src="/img/mind.jpg"></p>
-        <p>Мы - крутая команда, не знающая преград</p>
-
-       
+        {{>footer}}
         
     </body> 
 
-    {{>footer}}
      
 </html>

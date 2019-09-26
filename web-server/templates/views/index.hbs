@@ -2,17 +2,25 @@
 
 <html>
 
-    {{>head}}
+    <head>
+        <meta charset="utf-8">
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel='icon' href="/img/icon-sunny.png"
+    </head>
 
-    {{>header}}
     
     <body>
-        {{>titleMenu}}
-        
-        {{>titleHead}}
-        
-    </body>
+        <div class="main-content">
+            {{>header}}
 
-    {{>footer}}
+            {{>titleMenu}}
+
+            {{>titleHead}}
+        </div>
+        
+        {{>footer}}
+
+    </body>
     
 </html>
