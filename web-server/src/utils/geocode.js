@@ -1,4 +1,5 @@
 const request = require('request');
+const color = require('chalk');
 
 const geocode = (place, callback) => {
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' +
@@ -8,9 +9,9 @@ const geocode = (place, callback) => {
         if(error){
             callback('Unable to connect to location service\n' + error);
         } else if(statusCode !== 200){
-            callback(`Error when find location ${place}: ${statusCode}: ${statusMessage}`);
+            callback(`Error when find location "${place}": ${statusCode}: "${statusMessage}"`);
         } else if(body.features.length === 0){
-            callback(color.red.inverse(`Unable place: ${place}. Try please search with other place`))
+            callback(`Unable place: "${place}". Try please search with other place`)
         } else {
             callback(undefined, {
                 placeName: body.features[0].place_name,

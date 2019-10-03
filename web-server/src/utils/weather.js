@@ -2,7 +2,7 @@ const request = require('request');
 const color = require('chalk')
 const geocode = require('./geocode');
 
-
+var error = '';
 var temperature = 0;
 var windSpeed = 0;
 var timezone = '';        
@@ -24,9 +24,9 @@ var findByLocation = ( { latitude, longitude, customPlace }, callback) => {
                           
     request({ url, json: true}, (error, { body, statusCode, statusMessage }) => {
         if(error){
-            callback('Unable to connect to location service\n' + error);
+            return 'Unable to connect to location service\n' + error;
         } else if(body.error){
-            callback(`Error when get weather ${statusCode}: ${statusMessage} \nCheck URL: ${url}`);
+            return `Error when get weather ${statusCode}: "${statusMessage}" \nCheck URL: '${url}'`;
         } else { 
             this.timezone =           body.timezone;
             this.temperature =        body.currently.temperature;
@@ -40,17 +40,17 @@ var findByLocation = ( { latitude, longitude, customPlace }, callback) => {
 };
 
 const findByPlace = function(customPlace, callback) {
-    geocode(customPlace, (error, { longitude, latitude, placeName }) => {
+    geocode(customPlace, (error, { longitude, latitude, placeName } = {}) => {
         if(error){
-            return console.log(color.red.inverse(error));
+            callback(error, undefined);
         } 
             
         this.findByLocation({ longitude, latitude, placeName }, (error, weather) => {
             if(error){
-                return console.log(color.red.inverse(error));
+                callback(error, undefined);
             } 
              
-            callback(weather);
+            callback(undefined, weather);
             
         });
     });

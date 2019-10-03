@@ -39,20 +39,71 @@ app.get('', (req, res) => {
 });
 
 app.get('/weather', (req, res) => {
-    const place = req.query.place;
-    if(!place){
-        return res.send('<h1>ERROR: Place prlperty is undefined!</h1>');
-    }
-
-    weather.findByPlace(place, (w) => {
-        res.render('weather', {
-            title: 'Weather info',
-            weather: w,
+    if(!req.query.place){
+        return res.render('error',{
+            title: 'Failed weather',
             owner: owner,
             source: source,
-            date: Date
-        });
+            message: `ERROR: Place prlperty is undefined!` 
+        })
+    }
+
+    weather.findByPlace(req.query.place, (error, weather) => {
+        if(error){
+            console.log(color.red.inverse(error));
+            res.send(JSON.stringify({
+                title: 'Failed weather',
+                owner: owner,
+                source: source,
+                message: `ERROR: ${error}` 
+            }));
+        }
+        else{
+            res.send(JSON.stringify({
+                title: 'Weather info',
+                weather: weather,
+                owner: owner,
+                source: source,
+                date: Date
+            }));
+        }
     });
+});
+
+app.get('/testPage', (req, res) => {
+
+    res.render('testPage', {
+        message: 'ha ha ha'
+    });
+    // if(!req.query.place){
+    //     return res.send({
+    //         title: 'Failed weather',
+    //         owner: owner,
+    //         source: source,
+    //         message: `ERROR: Place prlperty is undefined!` 
+    //     })
+    // }
+
+    // weather.findByPlace(req.query.place, (error, weather) => {
+    //     if(error){
+    //         console.log(color.red.inverse(error));
+    //         res.send({
+    //             title: 'Failed weather',
+    //             owner: owner,
+    //             source: source,
+    //             message: `ERROR: ${error}` 
+    //         });
+    //     }
+    //     else{
+    //         res.send({
+    //             title: 'Weather info',
+    //             weather: weather,
+    //             owner: owner,
+    //             source: source,
+    //             date: Date
+    //         });
+    //     }
+    // });
 });
 
 app.get('/help', (req, res) => {

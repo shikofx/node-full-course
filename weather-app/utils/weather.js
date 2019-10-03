@@ -1,5 +1,5 @@
 const request = require('request');
-const color = require('chalk')
+const color = require('chalk');
 const geocode = require('./geocode');
 
 

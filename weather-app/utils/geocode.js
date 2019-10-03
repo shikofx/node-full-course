@@ -1,4 +1,6 @@
 const request = require('request');
+const color = require('chalk');
+
 
 const geocode = (place, callback) => {
     const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' +

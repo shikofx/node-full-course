@@ -1,0 +1,19 @@
+{
+  "name": "using",
+  "version": "1.0.0",
+  "description": "",
+  "main": "arrow-function-in-objects.js",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "request": "^2.88.0",
+    "validator": "^11.1.0",
+    "yargs": "^14.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Dzmitry Parkheichuk <shikofx@gmail.com>",
+  "license": "ISC"
+}
