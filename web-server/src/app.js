@@ -5,10 +5,12 @@ const weather = require('./utils/weather.js');
 const hbs = require('hbs');
 const app = express();
 
+const port = process.env.PORT || 3000;
 //Paths for Express config
 const viewPath = path.join(__dirname, '../templates/views')
 const partialsPaht = path.join(__dirname, '../templates/partials')
 const pagesPath = path.join(__dirname, '../pages');
+
 
 //Setup handlebars engine and views location
 app.set('view engine', 'hbs');
@@ -70,41 +72,6 @@ app.get('/weather', (req, res) => {
     });
 });
 
-app.get('/testPage', (req, res) => {
-
-    res.render('testPage', {
-        message: 'ha ha ha'
-    });
-    // if(!req.query.place){
-    //     return res.send({
-    //         title: 'Failed weather',
-    //         owner: owner,
-    //         source: source,
-    //         message: `ERROR: Place prlperty is undefined!` 
-    //     })
-    // }
-
-    // weather.findByPlace(req.query.place, (error, weather) => {
-    //     if(error){
-    //         console.log(color.red.inverse(error));
-    //         res.send({
-    //             title: 'Failed weather',
-    //             owner: owner,
-    //             source: source,
-    //             message: `ERROR: ${error}` 
-    //         });
-    //     }
-    //     else{
-    //         res.send({
-    //             title: 'Weather info',
-    //             weather: weather,
-    //             owner: owner,
-    //             source: source,
-    //             date: Date
-    //         });
-    //     }
-    // });
-});
 
 app.get('/help', (req, res) => {
     res.render('help', {
@@ -146,7 +113,7 @@ app.get('*', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('Server is up on port 3000');
+app.listen(port, () => {
+    console.log('Server is up on port ' + port);
     
 });

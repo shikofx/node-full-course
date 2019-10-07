@@ -31,7 +31,7 @@ weatherForm.addEventListener('submit', (e) => {
         currentSummary.innerHTML = '';
         errorMessage.textContent = 'Input your location to find the weather'
     } else {
-        fetch(`http://localhost:3000/weather?place=${location}`).then((responce) => {
+        fetch(`/weather?place=${location}`).then((responce) => {
                 responce.json().then((data) => {
                     
                     if(data.message){
