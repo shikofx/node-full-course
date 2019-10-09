@@ -24,21 +24,33 @@ mongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
 
     // console.log(colorLog.green.inverse('Connection succed!!!'));
 
-    db.collection('users').insertMany([{
-        name: 'Tanya',
-        age: 37
-    }, {
-        name: 'Yarik',
-        age: 14
-    }, {
-        name: 'Arsi',
-        age: 3
-    }], (error, result) => {
-        if(error){
-            return console.log(colorLog.bgRed(error.code + ': ' + error.message));
-        }
-        console.log(result.ops);
-    });
+    // db.collection('users').insertMany([{
+    //     name: 'Tanya',
+    //     age: 37
+    // }, {
+    //     name: 'Yarik',
+    //     age: 14
+    // }, {
+    //     name: 'Arsi',
+    //     age: 3
+    // }], (error, result) => {
+    //     if(error){
+    //         return console.log(colorLog.bgRed(error.code + ': ' + error.message));
+    //     }
+    //     console.log(result.ops);
+    // });
 
-    
+    db.collection('tasks').insertMany([{
+        description: 'Insert docements to database',
+        completed: false
+    }, {
+        description: 'Print log with result of the inserting',
+        completed: false
+    }], (error, result) => {
+        if(error) {
+            console.log(colorLog.bgRed(error.code + ": " + error.message));
+        }
+
+        console.log(result.ops)
+    });
 });
