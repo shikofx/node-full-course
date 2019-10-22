@@ -20,7 +20,19 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     
     const db = client.db(dbName);
     
-    //Update age with incremental operator of update API
+    //Update tasks to complete
+    db.collection('tasks').updateMany({
+        completed: false
+    }, {
+        $set: {
+            completed: true
+        }
+    }).then((result) => {
+        console.log(result.result);
+    }).catch((error) => {
+        console.log(error)
+    });
+    //Update user's age with incremental operator of update API
     // db.collection('users').updateOne({
     //     _id: new ObjectID("5d9dff9a740f6f65a8fca5ee")
     // }, {
