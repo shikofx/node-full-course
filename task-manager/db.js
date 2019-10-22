@@ -20,6 +20,34 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     
     const db = client.db(dbName);
     
+    //Update age with incremental operator of update API
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID("5d9dff9a740f6f65a8fca5ee")
+    // }, {
+    //     $inc: {
+    //         age: 5
+    //     }
+    // }).then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
+
+    //Update 1 field of document with promises
+    // const updatePromise = db.collection('users').updateOne({
+    //     _id: new ObjectID("5d9dff9a740f6f65a8fca5ee")
+    // }, {
+    //     $set: {
+    //         name: 'Yari'
+    //     }
+    // });
+
+    // updatePromise.then((result) => {
+    //     console.log(result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
+
     // db.collection('users').findOne({ name: 'Yarik', age: 35 }, (error, user) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
