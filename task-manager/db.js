@@ -20,14 +20,22 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     
     const db = client.db(dbName);
     
-    //Delete one user with ID
-    db.collection('users').deleteOne({
-        _id: new ObjectID("5d9dd89a53c92181ac509e2f")
+    //Delete any users with age
+    db.collection('users').deleteMany({
+        age: 35
     }).then((result) => {
         console.log(result.result);
     }).catch((error) => {
         console.log(error);
     });
+    //Delete one user with ID
+    // db.collection('users').deleteOne({
+    //     _id: new ObjectID("5d9dd89a53c92181ac509e2f")
+    // }).then((result) => {
+    //     console.log(result.result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
     //Update tasks to complete
     // db.collection('tasks').updateMany({
     //     completed: false
