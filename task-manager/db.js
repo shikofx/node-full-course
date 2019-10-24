@@ -20,7 +20,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     
     const db = client.db(dbName);
     
-    //Delete any users with age
+    //Delete any users with age   sd
     db.collection('users').deleteMany({
         age: 35
     }).then((result) => {
