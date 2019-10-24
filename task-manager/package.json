@@ -10,7 +10,8 @@
   "author": "Dzmitry Parkheichuk <shikofx@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^3.3.2"
+    "mongodb": "^3.3.2",
+    "mongoose": "^5.7.6"
   },
   "devDependencies": {
     "chalk": "^2.4.2",

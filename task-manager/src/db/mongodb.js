@@ -20,15 +20,15 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     
     const db = client.db(dbName);
     
-    //Delete any users with age   sd
-    db.collection('users').deleteMany({
-        age: 35
-    }).then((result) => {
-        console.log(result.result);
-    }).catch((error) => {
-        console.log(error);
-    });
-    //Delete one user with ID
+    //Delete any users with age with promises
+    // db.collection('users').deleteMany({
+    //     age: 35
+    // }).then((result) => {
+    //     console.log(result.result);
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
+    //Delete one user with ID with promises
     // db.collection('users').deleteOne({
     //     _id: new ObjectID("5d9dd89a53c92181ac509e2f")
     // }).then((result) => {
@@ -36,7 +36,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     // }).catch((error) => {
     //     console.log(error);
     // });
-    //Update tasks to complete
+    //Update tasks to complete with promises
     // db.collection('tasks').updateMany({
     //     completed: false
     // }, {
@@ -49,7 +49,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(error)
     // });
 
-    //Update user's age with incremental operator of update API
+    //Update user's age with incremental operator of update API with promises
     // db.collection('users').updateOne({
     //     _id: new ObjectID("5d9dff9a740f6f65a8fca5ee")
     // }, {
@@ -76,6 +76,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(error);
     // });
 
+    //findOne with callbacks
     // db.collection('users').findOne({ name: 'Yarik', age: 35 }, (error, user) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
@@ -83,6 +84,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(user);
     // });
 
+    //findOne with callbacks
     // db.collection('users').findOne({ _id: new ObjectID("5d9dd89a53c92181ac509e2f") }, (error, user) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
@@ -91,6 +93,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(user);
     // });
     
+    //find with callbacks
     // db.collection('users').find({ age: 35 }).count((error, count) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
@@ -99,6 +102,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log('It is found ' + count + ' items');
     // });
 
+    //find with callbacks
     // db.collection('users').find({ age: 35 }).toArray((error, users) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
@@ -106,6 +110,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(users);
     // });
 
+    //findOne with callbacks
     // db.collection('tasks').findOne( { _id: new ObjectID('5d9ddd5faca4275e48a13202') } , (error, task) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
@@ -114,6 +119,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(task);
     // });
 
+    //find with callbacks
     // db.collection('tasks').find( { completed: true } ).toArray((error, tasks) => {
     //     if(error){
     //         return console.log(colorLog.bgRed(`Error ${error.code}: ${error.message}`));
@@ -121,12 +127,11 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
         
     //     console.log(tasks);
     // })
-    // db.collection('users').find({ name: 'Yarik' }).toArray((error, users) => {
+    // db.collection('users').find({  }).toArray((error, users) => {
     //     console.log(users);
     // });
     
-        
-    // db.collection('users').s
+    //insertOne with callbacks
     // db.collection('users').insertOne({
     //     _id: id,
     //     name: 'Yarik',
@@ -136,7 +141,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(result.ops);
     // });
 
-    
+    //insertMany with callbacks
     // db.collection('users').insertMany([{
     //     name: 'Tanya',
     //     age: 37
@@ -153,6 +158,7 @@ MongoClient.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true 
     //     console.log(result.ops);
     // });
 
+    //insertMany with callbacks
     // db.collection('tasks').insertMany([{
     //     description: 'Insert docements to database',
     //     completed: true
