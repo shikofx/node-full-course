@@ -13,6 +13,15 @@ router.post('/user', async (req, res) => {
     }
 });
 
+router.post('/users/login', async (req, res) => {
+    try {
+        const user = await User.findByCredantials(req.body.email, req.body.password );
+        res.send(user);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+});
+
 router.get('/users', async (req, res) => {
     try{ 
         const users = await User.find({});
@@ -84,14 +93,18 @@ router.patch('/user/:id', async (req, res) => {
     const _id = req.params.id;
     const newBody = req.body;
     const updates = Object.keys(newBody);
-    const allowedUpdates = ['name', 'email', 'age'];
+    const allowedUpdates = ['name', 'password', 'email', 'age'];
     const isValidOperation = updates.every(updateItem => allowedUpdates.includes(updateItem));
     if(!isValidOperation){
         return res.status(400).send({ error: 'Invalid parameters for update!' })
     }
 
     try {
-        const user = await User.findByIdAndUpdate(_id, newBody, { new: true, runValidators: true });
+        const user = await User.findById(req.params.id);
+        updates.forEach((update) => user[update] = req.body[update]);
+
+        await user.save();
+        // const user = await User.findByIdAndUpdate(_id, newBody, { new: true, runValidators: true });
         if(!user){
             return res.status(404).send();
         }

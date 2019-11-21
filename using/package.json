@@ -4,6 +4,7 @@
   "description": "",
   "main": "arrow-function-in-objects.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "chalk": "^2.4.2",
     "request": "^2.88.0",
     "validator": "^11.1.0",
