@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/user');
 const router = new express.Router();
+const auth = require('../../middlware/auth.js');
 
 router.post('/user', async (req, res) => {
     const user = new User(req.body);
@@ -14,41 +15,41 @@ router.post('/user', async (req, res) => {
     }
 });
 
-router.post('/users/login', async (req, res) => {
+router.post('/user/login', async (req, res) => {
     try {
         const user = await User.findByCredantials(req.body.email, req.body.password );
         const token = await user.createNewToken();
-        res.send({ user, token });
+        res.send({ user: user, token });
 
     } catch (error) {
         res.status(400).send(error.message);
     }
 });
 
-router.get('/users', async (req, res) => {
-    try{ 
-        const users = await User.find({});
-        if(!users){
-            return res.status(404).send();
-        }
-        res.send(users);    
-    } catch(error) {
+router.post('/user/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token;
+        });
+        await req.user.save();
+        res.send("You have logged out!")
+    } catch (error) {
+        res.status(500).send(error.message)
+    } 
+})
+
+router.post('/user/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = [];
+        await req.user.save();
+        res.status(200).send("You have logged out of all devices");
+    } catch (error) {
         res.status(500).send(error.message);
     }
-});
+})
 
-router.get('/user/:id', async (req, res) => {
-    
-    const _id = new ObjectID(req.params.id);
-    try{
-        const user = await User.findById(_id);
-        if(!user){
-            return res.status(404).send();
-        }
-        res.send(user);    
-    } catch(error) {
-        res.status().send(error.message);
-    }
+router.get('/user/profile', auth, async (req, res) => {
+    res.send(req.user);
 });
 
 router.get('/users/with/name/:name', async (req, res) => {
@@ -92,54 +93,30 @@ router.get('/users/with/name/:name/age/:age', async (req, res) => {
     };
 });
 
-router.patch('/user/:id', async (req, res) => {
-    const _id = req.params.id;
-    const newBody = req.body;
-    const updates = Object.keys(newBody);
+router.patch('/user/profile', auth, async (req, res) => {
+    const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'password', 'email', 'age'];
     const isValidOperation = updates.every(updateItem => allowedUpdates.includes(updateItem));
+    
     if(!isValidOperation){
         return res.status(400).send({ error: 'Invalid parameters for update!' })
     }
 
     try {
-        const user = await User.findById(req.params.id);
-        updates.forEach((update) => user[update] = req.body[update]);
-
-        await user.save();
-        // const user = await User.findByIdAndUpdate(_id, newBody, { new: true, runValidators: true });
-        if(!user){
-            return res.status(404).send();
-        }
-        res.send(user);
+        updates.forEach((update) => req.user[update] = req.body[update]);
+        await req.user.save();
+        res.send(req.user);
 
     } catch (error) {
         res.status(400).send(error.message);
     }
 });
 
-router.delete('/user/:id', async (req, res) => {
-    const id = req.params.id;
+router.delete('/user/profile', auth, async (req, res) => {
     try{
-        const user = await User.findByIdAndDelete(id) ;
-        if(!user){
-            res.status(404).send();
-        }
-        res.send(user);
+        await req.user.remove();
+        res.send(req.user);
     } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
-router.delete('/task/:id', async (req, res) => {
-    const id = req.params.id;
-    try{    
-        const task = await Task.findByIdAndDelete(id);
-        if(!task){
-            res.status(404).send();
-        }
-        res.send(task);
-    } catch(error) {
         res.status(500).send(error.message);
     }
 });

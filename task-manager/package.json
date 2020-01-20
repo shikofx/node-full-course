@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "env-cmd -f ./config/dev.env nodemon src/index.js"
   },
   "keywords": [],
   "author": "Dzmitry Parkheichuk <shikofx@gmail.com>",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "chalk": "^2.4.2",
+    "env-cmd": "^10.0.1",
     "nodemon": "^1.19.3"
   }
 }
