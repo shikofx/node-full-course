@@ -1,10 +1,11 @@
 const path  = require('path');
-const {generateMessage, generateLocationUrl} = require('./utils/messages')
 const express   = require('express');
 const http  = require('http');
 const socketio = require('socket.io');
+const {generateMessage, generateLocationUrl} = require('./utils/messages')
 const WordsFilter = require('bad-words');
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./utils/users');
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
